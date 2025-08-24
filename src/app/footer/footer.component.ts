@@ -92,7 +92,7 @@ interface FooterList {
           <ul class="flex flex-col gap-2 py-3 lg:py-0 border-t border-t-gray-400 lg:border-none">
             <div class="flex justify-between">
               <h3 class="text-white lg:pb-6">客戶服務</h3>
-              <mat-icon class="text-white">arrow_drop_down</mat-icon>
+              <mat-icon class="text-white invisible lg:visible">arrow_drop_down</mat-icon>
             </div>
             @for (item of serviceList; track item.id) {
               <li class="text-gray-400 text-sm cursor-pointer hover:text-white">
@@ -105,7 +105,7 @@ interface FooterList {
           >
             <div class="flex justify-between">
               <h3 class="text-white lg:pb-6">關於茶籽堂</h3>
-              <mat-icon class="text-white"> arrow_drop_down </mat-icon>
+              <mat-icon class="text-white invisible lg:visible"> arrow_drop_down </mat-icon>
             </div>
             @for (item of aboutList; track item.id) {
               <li class="text-gray-400 text-sm cursor-pointer hover:text-white">
@@ -116,7 +116,7 @@ interface FooterList {
           <ul class="flex flex-col gap-2 py-3 lg:py-0 border-t border-t-gray-400 lg:border-none">
             <div class="flex justify-between">
               <h3 class="text-white lg:pb-6">營業事業</h3>
-              <mat-icon class="text-white">arrow_drop_down</mat-icon>
+              <mat-icon class="text-white invisible lg:visible">arrow_drop_down</mat-icon>
             </div>
             @for (item of businessList; track item.id) {
               <li class="text-gray-400 text-sm cursor-pointer hover:text-white">
@@ -129,15 +129,24 @@ interface FooterList {
       <div>
         <mat-divider class="material-divider"></mat-divider>
       </div>
-      <section
-        class="flex flex-col gap-6 lg:flex-row lg:justify-between lg:items-center text-gray-400 text-sm py-8"
-      >
+      <section class="flex flex-col gap-6 lg:hidden text-gray-400 text-sm py-8">
         <div class="flex gap-6">
           <a routerLink="/policy" class="hover:text-white">政策＆條款</a>
           <a routerLink="/private" class="hover:text-white">隱私權聲明</a>
         </div>
         <div>
           <p>© 茶籽堂</p>
+        </div>
+      </section>
+      <section
+        class="hidden gap-6 lg:flex lg:justify-between lg:items-center text-gray-400 text-sm py-8"
+      >
+        <div>
+          <p>© 茶籽堂</p>
+        </div>
+        <div class="flex gap-6">
+          <a routerLink="/policy" class="hover:text-white">政策＆條款</a>
+          <a routerLink="/private" class="hover:text-white">隱私權聲明</a>
         </div>
       </section>
     </footer>
