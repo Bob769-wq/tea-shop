@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { getLocaleCurrencyName } from '@angular/common';
+import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 interface NavList {
   id: number;
@@ -18,7 +20,7 @@ interface MenuList {
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, MatIconModule],
+  imports: [RouterLink, MatIconModule, MatFormField, MatInput, ReactiveFormsModule],
   template: `
     <header
       class="flex lg:px-8 lg:py-5 justify-between items-center lg:items-start fixed top-0 left-0 bg-white w-full"
@@ -56,10 +58,21 @@ interface MenuList {
         </ul>
       </div>
 
-      <div>
+      <div class="relative">
         <ul class="flex items-center gap-5 ">
-          <li class="flex cursor-pointer hover:text-orange-400">
+          <li class="flex cursor-pointer hover:text-orange-400 group relative">
             <mat-icon>search</mat-icon>
+            <div
+              class="absolute top-0 right-0 z-50 transition-all duration-300 ease-in-out
+              transform translate-x-full opacity-0 invisible group-hover:translate-x-0 group-hover:opacity-100 group-hover:visible
+              hidden lg:block"
+            >
+              <div class="flex items-center">
+                <mat-form-field>
+                  <input matInput placeholder="找商品" [formControl]="searchControl" />
+                </mat-form-field>
+              </div>
+            </div>
           </li>
           <li class="lg:flex hidden cursor-pointer hover:text-orange-400">
             $TWD
@@ -280,4 +293,9 @@ export class HeaderComponent {
   isExpanded(itemId: number): boolean {
     return this.expandedItems().has(itemId);
   }
+
+  fb = inject(NonNullableFormBuilder);
+
+  searchControl = this.fb.control('');
+  isSearchOpen = false;
 }
