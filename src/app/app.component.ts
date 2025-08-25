@@ -4,6 +4,7 @@ import { HeroSectionComponent } from './main/hero-section.component';
 import { DirectComponent } from './main/direct-grid/direct.component';
 import { CooperateComponent } from './main/cooperate-grid/cooperate.component';
 import { FooterComponent } from './footer/footer.component';
+import { RightCornerComponent } from './right-corner.component';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,10 @@ import { FooterComponent } from './footer/footer.component';
     DirectComponent,
     CooperateComponent,
     FooterComponent,
+    RightCornerComponent,
   ],
   template: `
+    <app-right-corner />
     <app-header />
     <app-hero-section />
     <app-direct />
