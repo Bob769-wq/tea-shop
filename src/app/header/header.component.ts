@@ -113,15 +113,18 @@ interface MenuList {
             </mat-icon>
           </div>
 
-          @if (isExpanded(item.id)) {
-            <ul class="flex flex-col bg-gray-50">
+          <div
+            class="flex flex-col bg-gray-50 overflow-hidden transition-all duration-300 ease-in-out"
+            [class]="isExpanded(item.id) ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'"
+          >
+            <ul class="flex flex-col">
               @for (child of item.children; track child.id) {
                 <li class="px-10 py-4">
                   <a [routerLink]="child.link">{{ child.title }}</a>
                 </li>
               }
             </ul>
-          }
+          </div>
         }
       </ul>
       <ul class="flex flex-col gap-8 px-10 py-8 border-t border-t-gray-100">
@@ -129,13 +132,13 @@ interface MenuList {
         <li class="flex-1"><a routerLink="/new" class="block w-full">新用戶註冊</a></li>
       </ul>
       <ul class="flex flex-col gap-8 px-10 py-8 border-t border-t-gray-100">
-        <div class="flex items-center">
+        <div class="flex items-center cursor-pointer">
           <li class="flex-1"><a routerLink="/contact" class="block w-full">聯絡我們</a></li>
           <mat-icon>comment</mat-icon>
         </div>
-        <div class="flex items-center ">
+        <div class="flex items-center">
           <li class="flex-1"><a routerLink="/coin" class="block w-full">幣值</a></li>
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-3 cursor-pointer">
             <span>$TWD</span>
             <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 640 640">
               <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
