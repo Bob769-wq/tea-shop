@@ -74,10 +74,34 @@ interface MenuList {
               </div>
             </div>
           </li>
-          <li class="lg:flex hidden cursor-pointer hover:text-orange-400">
-            $TWD
-            <mat-icon>keyboard_arrow_down</mat-icon>
+          <li class="lg:flex hidden cursor-pointer hover:text-orange-400 relative">
+            <div class="flex items-center" (click)="toggleCurrencyDropdown()">
+              $ {{ selectedCurrency }}
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </div>
           </li>
+          <div
+            class="absolute top-full left-8 mt-1 border border-gray-100 bg-white z-50
+            transition-all duration-300 ease-in-out overflow-hidden"
+            [class]="
+              isCurrencyDropdownOpen
+                ? 'opacity-100 visible translate-y-0'
+                : 'opacity-0 invisible -translate-y-2'
+            "
+          >
+            <div class="py-2">
+              @for (currency of currencies; track currency.id) {
+                <div
+                  class="px-4 py-2 hover:text-gray-500 cursor-pointer overflow-auto
+                  flex items-center justify-between gap-1 transition-colors duration-100"
+                  (click)="selectCurrency(currency.code)"
+                >
+                  <span>{{ currency.symbol }}</span>
+                  <span>{{ currency.code }}</span>
+                </div>
+              }
+            </div>
+          </div>
           <li class="lg:flex hidden cursor-pointer hover:text-orange-400">
             <mat-icon>chat</mat-icon>
           </li>
@@ -300,5 +324,38 @@ export class HeaderComponent {
   fb = inject(NonNullableFormBuilder);
 
   searchControl = this.fb.control('');
-  isSearchOpen = false;
+
+  selectedCurrency = 'TWD';
+  isCurrencyDropdownOpen = false;
+
+  currencies = [
+    { id: 1, code: 'HKD', symbol: '$' },
+    { id: 2, code: 'MOP', symbol: 'P' },
+    { id: 3, code: 'CNY', symbol: '¥' },
+    { id: 4, code: 'TWD', symbol: '$' },
+    { id: 5, code: 'USD', symbol: '$' },
+    { id: 6, code: 'SGD', symbol: '$' },
+    { id: 7, code: 'EUR', symbol: '€' },
+    { id: 8, code: 'AUD', symbol: '$' },
+    { id: 9, code: 'GBP', symbol: '£' },
+    { id: 10, code: 'PHP', symbol: '₱' },
+    { id: 11, code: 'MYR', symbol: 'RM' },
+    { id: 12, code: 'THB', symbol: '฿' },
+    { id: 13, code: 'AED', symbol: 'د.إ' },
+    { id: 14, code: 'JPY', symbol: '¥' },
+    { id: 15, code: 'BND', symbol: '$' },
+    { id: 16, code: 'KRW', symbol: '₩' },
+    { id: 17, code: 'IDR', symbol: 'Rp' },
+    { id: 18, code: 'VND', symbol: '₫' },
+    { id: 19, code: 'CAD', symbol: '$' },
+  ];
+
+  toggleCurrencyDropdown() {
+    this.isCurrencyDropdownOpen = !this.isCurrencyDropdownOpen;
+  }
+
+  selectCurrency(currencyCode: string) {
+    this.selectedCurrency = currencyCode;
+    this.isCurrencyDropdownOpen = false;
+  }
 }
