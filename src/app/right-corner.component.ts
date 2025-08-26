@@ -4,10 +4,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-right-corner',
   imports: [],
   template: `
-<!--    TODO: 右下角沒有圓角-->
+    <!--    TODO: 右下角沒有圓角-->
+    done
     <div class="fixed right-5 bottom-5 z-50">
       <button
-        class="w-16 h-16 bg-green-500 rounded-full flex justify-center items-center group relative"
+        class="w-16 h-16 bg-green-500 rounded-full rounded-ee-none flex justify-center items-center group relative"
       >
         <svg
           class="w-8 h-8 text-white group-hover:hidden transition-all duration-300"

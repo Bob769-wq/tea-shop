@@ -8,3 +8,7 @@
 .material-divider {
   border-top-color: rgb(156, 163, 175) !important;
 }
+
+:root {
+  --currency-container: 658px;
+}
