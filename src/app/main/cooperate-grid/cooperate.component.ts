@@ -50,10 +50,10 @@ interface OpenTime {
       <!--        <img src="/island-region-s.webp" alt="island-region-s" />-->
       <!--      </div>-->
 
-      <div class="flex flex-col px-6 pt-8 pb-24">
-        <h3 class="text-xl tracking-widest">北北基</h3>
-        @for (north of NorthItems; track north.id) {
-          <div class="text-lg">
+      <div class="flex flex-col px-6 pb-24 gap-16">
+        <div class="text-lg">
+          <h3 class="text-xl tracking-widest mt-8">北北基</h3>
+          @for (north of NorthItems; track north.id) {
             <div class="flex border-t border-t-gray-100 mt-3 py-2">
               <span class="flex flex-shrink-0">門<span class="invisible">一一</span>市｜</span>
               <span>{{ north.store }}</span>
@@ -74,11 +74,11 @@ interface OpenTime {
                 }
               </div>
             </div>
-          </div>
-        }
-        <h3 class="text-xl tracking-widest">桃竹苗</h3>
-        @for (hakka of HakkaItems; track hakka.id) {
-          <div class="text-lg">
+          }
+        </div>
+        <div class="text-lg">
+          <h3 class="text-xl tracking-widest">桃竹苗</h3>
+          @for (hakka of HakkaItems; track hakka.id) {
             <div class="flex border-t border-t-gray-100 mt-3 py-2">
               <span class="flex flex-shrink-0">門<span class="invisible">一一</span>市｜</span>
               <span>{{ hakka.store }}</span>
@@ -99,11 +99,11 @@ interface OpenTime {
                 }
               </div>
             </div>
-          </div>
-        }
-        <h3 class="text-xl tracking-widest">中區</h3>
-        @for (gun of GunItems; track gun.id) {
-          <div class="text-lg">
+          }
+        </div>
+        <div class="text-lg">
+          <h3 class="text-xl tracking-widest">中區</h3>
+          @for (gun of GunItems; track gun.id) {
             <div class="flex border-t border-t-gray-100 mt-3 py-2">
               <span class="flex flex-shrink-0">門<span class="invisible">一一</span>市｜</span>
               <span>{{ gun.store }}</span>
@@ -124,11 +124,11 @@ interface OpenTime {
                 }
               </div>
             </div>
-          </div>
-        }
-        <h3 class="text-xl tracking-widest">南區</h3>
-        @for (south of SouthItems; track south.id) {
-          <div class="text-lg">
+          }
+        </div>
+        <div class="text-lg">
+          <h3 class="text-xl tracking-widest">南區</h3>
+          @for (south of SouthItems; track south.id) {
             <div class="flex border-t border-t-gray-100 mt-3 py-2">
               <span class="flex flex-shrink-0">門<span class="invisible">一一</span>市｜</span>
               <span>{{ south.store }}</span>
@@ -149,11 +149,11 @@ interface OpenTime {
                 }
               </div>
             </div>
-          </div>
-        }
-        <h3 class="text-xl tracking-widest">外島</h3>
-        @for (island of IslandItems; track island.id) {
-          <div class="text-lg">
+          }
+        </div>
+        <div class="text-lg">
+          <h3 class="text-xl tracking-widest">外島</h3>
+          @for (island of IslandItems; track island.id) {
             <div class="flex border-t border-t-gray-100 mt-3 py-2">
               <span class="flex flex-shrink-0">門<span class="invisible">一一</span>市｜</span>
               <span>{{ island.store }}</span>
@@ -174,8 +174,8 @@ interface OpenTime {
                 }
               </div>
             </div>
-          </div>
-        }
+          }
+        </div>
       </div>
     </section>
   `,
