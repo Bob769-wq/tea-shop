@@ -17,6 +17,7 @@ interface FooterList {
       <section class="flex flex-col gap-6 lg:flex-row lg:justify-between pt-16 lg:py-16">
         <div class="flex flex-col items-center gap-8 lg:items-start">
           <div>
+<!--            TODO: 使用routerLink的時候最好把routerLinkActive/routerLinkActiveOptions也一起寫上去-->
             <a routerLink="/home" class="block h-20 aspect-square"
               ><img src="/logo-footer.png" alt="logo-footer"
             /></a>
@@ -88,6 +89,8 @@ interface FooterList {
             </a>
           </div>
         </div>
+
+<!--        TODO: click要可以打開跟關起來-->
         <div class="flex flex-col lg:flex-row lg:gap-20">
           <ul class="flex flex-col gap-2 py-3 lg:py-0 border-t border-t-gray-400 lg:border-none">
             <div class="flex justify-between">
@@ -96,6 +99,7 @@ interface FooterList {
             </div>
             @for (item of serviceList; track item.id) {
               <li class="text-gray-400 text-sm cursor-pointer hover:text-white">
+                <!--            TODO: 使用routerLink的時候最好把routerLinkActive/routerLinkActiveOptions也一起寫上去-->
                 <a [routerLink]="item.link">{{ item.title }}</a>
               </li>
             }
@@ -127,6 +131,7 @@ interface FooterList {
         </div>
       </section>
       <div>
+<!--        TODO: 如果不是全域的css可以直接寫在component裡面-->
         <mat-divider class="material-divider"></mat-divider>
       </div>
       <section class="flex flex-col gap-6 lg:hidden text-gray-400 text-sm py-8">
@@ -134,6 +139,7 @@ interface FooterList {
           <a routerLink="/policy" class="hover:text-white">政策＆條款</a>
           <a routerLink="/private" class="hover:text-white">隱私權聲明</a>
         </div>
+        <!--        TODO:這邊為什麼需要多包一個div?如果用不到就拿掉-->
         <div>
           <p>© 茶籽堂</p>
         </div>
@@ -141,6 +147,7 @@ interface FooterList {
       <section
         class="hidden gap-6 lg:flex lg:justify-between lg:items-center text-gray-400 text-sm py-8"
       >
+<!--        TODO:這邊為什麼需要多包一個div?如果用不到就拿掉-->
         <div>
           <p>© 茶籽堂</p>
         </div>

@@ -33,6 +33,7 @@ interface MenuList {
         <ul class="hidden lg:flex gap-6 text-sm py-1">
           @for (item of navListItems; track item.id) {
             <li class="relative group">
+<!--              TODO: hover的時候顏色-->
               <a class="flex items-center" [routerLink]="item.link"
                 >{{ item.title }}
                 <mat-icon>keyboard_arrow_down</mat-icon>
@@ -44,6 +45,7 @@ interface MenuList {
                 >
                   <ul class="py-2 flex flex-col">
                     @for (child of item.children; track child.id) {
+<!--                      TODO: hover顏色不對，hover跟cursor pointer的範圍不一樣-->
                       <li class="p-2 hover:bg-gray-300 duration-200">
                         <a [routerLink]="child.link" class="text-gray-700">
                           {{ child.title }}
@@ -59,6 +61,8 @@ interface MenuList {
       </div>
 
       <div class="relative">
+<!--        TODO: search box的位置不對，動畫的速度太快了，會有奇怪的抖動畫面-->
+<!--        TODO: 手機版的search box-->
         <ul class="flex items-center gap-5 ">
           <li class="flex cursor-pointer hover:text-orange-400 group relative">
             <mat-icon>search</mat-icon>
@@ -68,6 +72,7 @@ interface MenuList {
               hidden lg:block"
             >
               <div class="flex items-center">
+<!--                TODO: 如果這邊要用reactive form的話要記得把form寫進來-->
                 <mat-form-field>
                   <input matInput placeholder="找商品" [formControl]="searchControl" />
                 </mat-form-field>
@@ -80,6 +85,7 @@ interface MenuList {
               <mat-icon>keyboard_arrow_down</mat-icon>
             </div>
           </li>
+<!--          TODO: 幣值太多的時候應該要可以scroll-->
           <div
             class="absolute top-full left-8 mt-1 border border-gray-100 bg-white z-50
             transition-all duration-300 ease-in-out overflow-hidden"
@@ -304,11 +310,13 @@ export class HeaderComponent {
     this.isMenuOpen.update((value) => !value);
   }
 
+  // TODO: 為什麼這邊要用new Set()，而不是用array？type Set的用意是什麼？
   expandedItems = signal<Set<number>>(new Set());
 
   toggleSubMenu(itemId: number) {
     const currentExpanded = new Set(this.expandedItems());
 
+    // TODO: 為什麼這邊需要這樣判斷，路徑不都已經可控嗎？
     if (currentExpanded.has(itemId)) {
       currentExpanded.delete(itemId);
     } else {
@@ -323,9 +331,13 @@ export class HeaderComponent {
 
   fb = inject(NonNullableFormBuilder);
 
+  // TODO: 如果是要用reactive form的話，格式要寫對
   searchControl = this.fb.control('');
 
+  // TODO: why not use signal here?
   selectedCurrency = 'TWD';
+
+  // TODO: why not use signal here?
   isCurrencyDropdownOpen = false;
 
   currencies = [
@@ -351,10 +363,12 @@ export class HeaderComponent {
   ];
 
   toggleCurrencyDropdown() {
+    // TODO: why not use signal here?
     this.isCurrencyDropdownOpen = !this.isCurrencyDropdownOpen;
   }
 
   selectCurrency(currencyCode: string) {
+    // TODO: why not use signal here?
     this.selectedCurrency = currencyCode;
     this.isCurrencyDropdownOpen = false;
   }
