@@ -7,9 +7,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     <img
       src="/hero-section.webp"
       alt="hero-section"
-      class="mt-12 hidden md:block  md:mt-18 lg:block lg:mt-28"
+      class="mt-10 hidden md:block  md:mt-8 lg:block lg:mt-24"
     />
-    <img src="/hero-section-s.webp" alt="" class="mt-12 md:hidden lg:hidden" />
+    <img src="/hero-section-s.webp" alt="" class="mt-8 md:hidden lg:hidden" />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

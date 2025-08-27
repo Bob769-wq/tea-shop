@@ -17,12 +17,10 @@ interface OpenTime {
 
 @Component({
   selector: 'app-direct',
-  // TODO: 沒用到的import要刪掉 done
   imports: [],
   template: `
     <section class="max-w-6xl m-auto">
       <div class="flex justify-center py-5">
-        <!--        TODO: 手機版文字大小不對 找到圖片解決-->
         <!--        <h1-->
         <!--          class="border-b border-b-black inline-block pb-1 text-center font-medium text-3xl  md:text-3xl lg:text-5xl tracking-widest"-->
         <!--        >-->
@@ -36,7 +34,7 @@ interface OpenTime {
       <!--        @for (card of gridCard; track card.id) {-->
       <!--          <div class="w-full">-->
       <!--            <a target="_blank" [href]="card.link">-->
-      <!--       TODO: 這個部分用html/css取代圖片 -->
+
       <!--              <img alt="" [src]="card.img" class="w-full aspect-[27/35]" />-->
       <!--            </a>-->
       <!--          </div>-->

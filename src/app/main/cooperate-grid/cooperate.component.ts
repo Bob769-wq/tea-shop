@@ -5,7 +5,8 @@ interface ChildrenItems {
   store: string;
   phone: string;
   address: string;
-  open: OpenTime[];
+  time: OpenTime[];
+  open?: string;
 }
 
 interface OpenTime {
@@ -19,7 +20,6 @@ interface OpenTime {
   template: `
     <section class="max-w-6xl m-auto">
       <div class="flex justify-center py-5">
-        <!--        TODO: 手機版的文字大小不對 找到圖片解決-->
         <!--        <h1-->
         <!--          class="border-b border-b-black inline-block pb-1 text-center font-medium text-5xl tracking-widest"-->
         <!--        >-->
@@ -34,8 +34,6 @@ interface OpenTime {
         <img src="/cooperate-title-lg.webp" alt="cooperate-title-lg" class="hidden lg:block" />
       </div>
       <!--      <div class="hidden md:block md:px-24 lg:px-0">-->
-      <!--       TODO: 這個部分用html/css取代圖片 -->
-      <!--        TODO: 使用圖片的時候alt記得要寫，跟前端的accessibility有關係，如果不知道是什麼再自己查一下 解決-->
       <!--        <img src="/north-region.webp" alt="north-region" />-->
       <!--        <img src="/hakka-region.webp" alt="hakka-region" />-->
       <!--        <img src="/gun-region.webp" alt="gun-region" />-->
@@ -50,26 +48,32 @@ interface OpenTime {
       <!--        <img src="/island-region-s.webp" alt="island-region-s" />-->
       <!--      </div>-->
 
-      <div class="flex flex-col px-6 pb-24 gap-16">
+      <div class="flex flex-col px-6 pb-24 gap-32 tracking-widest md:hidden">
         <div class="text-lg">
-          <h3 class="text-xl tracking-widest mt-8">北北基</h3>
+          <h3 class="text-xl tracking-widest mt-8 text-[#929292]">北北基</h3>
           @for (north of NorthItems; track north.id) {
             <div class="flex border-t border-t-gray-100 mt-3 py-2">
-              <span class="flex flex-shrink-0">門<span class="invisible">一一</span>市｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >門<span class="invisible">一一</span>市｜</span
+              >
               <span>{{ north.store }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">電<span class="invisible">一一</span>話｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >電<span class="invisible">一一</span>話｜</span
+              >
               <span>{{ north.phone }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">地<span class="invisible">一一</span>址｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >地<span class="invisible">一一</span>址｜</span
+              >
               <span>{{ north.address }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">營業時間｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]">營業時間｜</span>
               <div class="flex flex-col gap-2">
-                @for (days of north.open; track days.id) {
+                @for (days of north.time; track days.id) {
                   <span>{{ days.day }}</span>
                 }
               </div>
@@ -77,24 +81,30 @@ interface OpenTime {
           }
         </div>
         <div class="text-lg">
-          <h3 class="text-xl tracking-widest">桃竹苗</h3>
+          <h3 class="text-xl tracking-widest text-[#929292]">桃竹苗</h3>
           @for (hakka of HakkaItems; track hakka.id) {
             <div class="flex border-t border-t-gray-100 mt-3 py-2">
-              <span class="flex flex-shrink-0">門<span class="invisible">一一</span>市｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >門<span class="invisible">一一</span>市｜</span
+              >
               <span>{{ hakka.store }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">電<span class="invisible">一一</span>話｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >電<span class="invisible">一一</span>話｜</span
+              >
               <span>{{ hakka.phone }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">地<span class="invisible">一一</span>址｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >地<span class="invisible">一一</span>址｜</span
+              >
               <span>{{ hakka.address }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">營業時間｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]">營業時間｜</span>
               <div class="flex flex-col gap-2">
-                @for (days of hakka.open; track days.id) {
+                @for (days of hakka.time; track days.id) {
                   <span>{{ days.day }}</span>
                 }
               </div>
@@ -102,24 +112,30 @@ interface OpenTime {
           }
         </div>
         <div class="text-lg">
-          <h3 class="text-xl tracking-widest">中區</h3>
+          <h3 class="text-xl tracking-widest text-[#929292]">中區</h3>
           @for (gun of GunItems; track gun.id) {
             <div class="flex border-t border-t-gray-100 mt-3 py-2">
-              <span class="flex flex-shrink-0">門<span class="invisible">一一</span>市｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >門<span class="invisible">一一</span>市｜</span
+              >
               <span>{{ gun.store }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">電<span class="invisible">一一</span>話｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >電<span class="invisible">一一</span>話｜</span
+              >
               <span>{{ gun.phone }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">地<span class="invisible">一一</span>址｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >地<span class="invisible">一一</span>址｜</span
+              >
               <span>{{ gun.address }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">營業時間｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]">營業時間｜</span>
               <div class="flex flex-col gap-2">
-                @for (days of gun.open; track days.id) {
+                @for (days of gun.time; track days.id) {
                   <span>{{ days.day }}</span>
                 }
               </div>
@@ -127,24 +143,30 @@ interface OpenTime {
           }
         </div>
         <div class="text-lg">
-          <h3 class="text-xl tracking-widest">南區</h3>
+          <h3 class="text-xl tracking-widest text-[#929292]">南區</h3>
           @for (south of SouthItems; track south.id) {
             <div class="flex border-t border-t-gray-100 mt-3 py-2">
-              <span class="flex flex-shrink-0">門<span class="invisible">一一</span>市｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >門<span class="invisible">一一</span>市｜</span
+              >
               <span>{{ south.store }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">電<span class="invisible">一一</span>話｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >電<span class="invisible">一一</span>話｜</span
+              >
               <span>{{ south.phone }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">地<span class="invisible">一一</span>址｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >地<span class="invisible">一一</span>址｜</span
+              >
               <span>{{ south.address }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">營業時間｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]">營業時間｜</span>
               <div class="flex flex-col gap-2">
-                @for (days of south.open; track days.id) {
+                @for (days of south.time; track days.id) {
                   <span>{{ days.day }}</span>
                 }
               </div>
@@ -152,25 +174,291 @@ interface OpenTime {
           }
         </div>
         <div class="text-lg">
-          <h3 class="text-xl tracking-widest">外島</h3>
+          <h3 class="text-xl tracking-widest text-[#929292]">外島</h3>
           @for (island of IslandItems; track island.id) {
-            <div class="flex border-t border-t-gray-100 mt-3 py-2">
-              <span class="flex flex-shrink-0">門<span class="invisible">一一</span>市｜</span>
+            <div class="flex border-t border-t-gray-200 mt-3 py-2">
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >門<span class="invisible">一一</span>市｜</span
+              >
               <span>{{ island.store }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">電<span class="invisible">一一</span>話｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >電<span class="invisible">一一</span>話｜</span
+              >
               <span>{{ island.phone }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">地<span class="invisible">一一</span>址｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]"
+                >地<span class="invisible">一一</span>址｜</span
+              >
               <span>{{ island.address }}</span>
             </div>
             <div class="flex py-2">
-              <span class="flex flex-shrink-0">營業時間｜</span>
+              <span class="flex flex-shrink-0 text-[#BE9F6F]">營業時間｜</span>
               <div class="flex flex-col gap-2">
-                @for (days of island.open; track days.id) {
+                @for (days of island.time; track days.id) {
                   <span>{{ days.day }}</span>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!--      <table mat-table [dataSource]="NorthItems">-->
+      <!--        <ng-container matColumnDef="store">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>門市</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.store }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="phone">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>電話</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="address">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>地址</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.address }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="open">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>營業時間</th>-->
+      <!--          <td mat-cell *matCellDef="let element">-->
+      <!--            @for (day of element.time; track day.id) {-->
+      <!--              <div>-->
+      <!--                {{ day.day }}-->
+      <!--              </div>-->
+      <!--            }-->
+      <!--          </td>-->
+      <!--        </ng-container>-->
+      <!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+      <!--        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
+      <!--      </table>-->
+      <!--      <table mat-table [dataSource]="HakkaItems">-->
+      <!--        <ng-container matColumnDef="store">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>門市</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.store }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="phone">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>電話</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="address">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>地址</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.address }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="open">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>營業時間</th>-->
+      <!--          <td mat-cell *matCellDef="let element">-->
+      <!--            @for (day of element.time; track day.id) {-->
+      <!--              <div>-->
+      <!--                {{ day.day }}-->
+      <!--              </div>-->
+      <!--            }-->
+      <!--          </td>-->
+      <!--        </ng-container>-->
+      <!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+      <!--        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
+      <!--      </table>-->
+      <!--      <table mat-table [dataSource]="GunItems">-->
+      <!--        <ng-container matColumnDef="store">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>門市</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.store }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="phone">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>電話</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="address">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>地址</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.address }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="open">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>營業時間</th>-->
+      <!--          <td mat-cell *matCellDef="let element">-->
+      <!--            @for (day of element.time; track day.id) {-->
+      <!--              <div>-->
+      <!--                {{ day.day }}-->
+      <!--              </div>-->
+      <!--            }-->
+      <!--          </td>-->
+      <!--        </ng-container>-->
+      <!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+      <!--        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
+      <!--      </table>-->
+      <!--      <table mat-table [dataSource]="SouthItems">-->
+      <!--        <ng-container matColumnDef="store">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>門市</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.store }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="phone">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>電話</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="address">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>地址</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.address }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="open">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>營業時間</th>-->
+      <!--          <td mat-cell *matCellDef="let element">-->
+      <!--            @for (day of element.time; track day.id) {-->
+      <!--              <div>-->
+      <!--                {{ day.day }}-->
+      <!--              </div>-->
+      <!--            }-->
+      <!--          </td>-->
+      <!--        </ng-container>-->
+      <!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+      <!--        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
+      <!--      </table>-->
+      <!--      <table mat-table [dataSource]="IslandItems">-->
+      <!--        <ng-container matColumnDef="store">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>門市</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.store }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="phone">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>電話</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="address">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>地址</th>-->
+      <!--          <td mat-cell *matCellDef="let element">{{ element.address }}</td>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container matColumnDef="open">-->
+      <!--          <th mat-header-cell *matHeaderCellDef>營業時間</th>-->
+      <!--          <td mat-cell *matCellDef="let element">-->
+      <!--            @for (day of element.time; track day.id) {-->
+      <!--              <div>-->
+      <!--                {{ day.day }}-->
+      <!--              </div>-->
+      <!--            }-->
+      <!--          </td>-->
+      <!--        </ng-container>-->
+      <!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+      <!--        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
+      <!--      </table>-->
+
+      <div class="md:flex md:px-12 flex-col gap-32 hidden py-28">
+        <div>
+          <h3 class="text-[#929292] text-xl">北北基</h3>
+          <div
+            class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
+          >
+            <div>門市</div>
+            <div>電話</div>
+            <div>地址</div>
+            <div>營業時間</div>
+          </div>
+          @for (item of NorthItems; track item.id) {
+            <div class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-sm">
+              <div>{{ item.store }}</div>
+              <div>{{ item.phone }}</div>
+              <div>{{ item.address }}</div>
+              <div>
+                @for (day of item.time; track day.id) {
+                  <div>
+                    {{ day.day }}
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+        <div>
+          <h3 class="text-[#929292] text-xl">桃竹苗</h3>
+          <div
+            class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
+          >
+            <div>門市</div>
+            <div>電話</div>
+            <div>地址</div>
+            <div>營業時間</div>
+          </div>
+          @for (item of HakkaItems; track item.id) {
+            <div class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-sm">
+              <div>{{ item.store }}</div>
+              <div>{{ item.phone }}</div>
+              <div>{{ item.address }}</div>
+              <div>
+                @for (day of item.time; track day.id) {
+                  <div>
+                    {{ day.day }}
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+        <div>
+          <h3 class="text-[#929292] text-xl">中區</h3>
+          <div
+            class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
+          >
+            <div>門市</div>
+            <div>電話</div>
+            <div>地址</div>
+            <div>營業時間</div>
+          </div>
+          @for (item of GunItems; track item.id) {
+            <div class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-sm">
+              <div>{{ item.store }}</div>
+              <div>{{ item.phone }}</div>
+              <div>{{ item.address }}</div>
+              <div>
+                @for (day of item.time; track day.id) {
+                  <div>
+                    {{ day.day }}
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+        <div>
+          <h3 class="text-[#929292] text-xl">南區</h3>
+          <div
+            class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
+          >
+            <div>門市</div>
+            <div>電話</div>
+            <div>地址</div>
+            <div>營業時間</div>
+          </div>
+          @for (item of SouthItems; track item.id) {
+            <div class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-sm">
+              <div>{{ item.store }}</div>
+              <div>{{ item.phone }}</div>
+              <div>{{ item.address }}</div>
+              <div>
+                @for (day of item.time; track day.id) {
+                  <div>
+                    {{ day.day }}
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+        <div>
+          <h3 class="text-[#929292] text-xl">外島</h3>
+          <div
+            class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
+          >
+            <div>門市</div>
+            <div>電話</div>
+            <div>地址</div>
+            <div>營業時間</div>
+          </div>
+          @for (item of IslandItems; track item.id) {
+            <div class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-sm">
+              <div>{{ item.store }}</div>
+              <div>{{ item.phone }}</div>
+              <div>{{ item.address }}</div>
+              <div>
+                @for (day of item.time; track day.id) {
+                  <div>
+                    {{ day.day }}
+                  </div>
                 }
               </div>
             </div>
@@ -182,31 +470,36 @@ interface OpenTime {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CooperateComponent {
+  displayedColumns = ['store', 'phone', 'address', 'open'];
+
   NorthItems: ChildrenItems[] = [
     {
       id: 1,
       store: '誠品生活-expo 林口三井店',
       phone: '02-6637 5888 #701',
       address: '新北市林口區文化三路一段356號1F',
-      open: [
+      time: [
         { id: 1, day: '週一～週四/11:00~21:30' },
         { id: 2, day: '週五、例假日前一天/11:00~22:00' },
         { id: 3, day: '週六～週日/10:30~22:00' },
       ],
+      open: '週一～週四/11:00~21:30週五、例假日前一天/11:00~22:00週六～週日/10:30~22:00',
     },
     {
       id: 2,
       store: 'EVERRICH 昇恆昌臺北松山機場店',
       phone: '－',
       address: '台北市松山區敦化北路340-9號',
-      open: [{ id: 1, day: '週一～週日/05:00~22:00' }],
+      time: [{ id: 1, day: '週一～週日/05:00~22:00' }],
+      open: '週一～週日/05:00~22:00',
     },
     {
       id: 3,
       store: 'EVERRICH 昇恆昌臺北內湖旗艦店',
       phone: '02-8792 3999',
       address: '台北市內湖區金莊路129號1樓',
-      open: [{ id: 1, day: '週一～週日/10:00~21:00' }],
+      time: [{ id: 1, day: '週一～週日/10:00~21:00' }],
+      open: '週一～週日/10:00~21:00',
     },
   ];
 
@@ -216,41 +509,46 @@ export class CooperateComponent {
       store: '誠品生活-expo 桃園統領店',
       phone: '03-339 0983',
       address: '桃園市桃源區中正路61號4F',
-      open: [
+      time: [
         { id: 1, day: '週日～週四/11:00~21:30' },
         { id: 2, day: '週五～週六/11:00~22:00' },
       ],
+      open: '週日～週四/11:00~21:30<br>週五～週六/11:00~22:00',
     },
     {
       id: 2,
       store: '誠品生活-expo SELECT 台茂店',
       phone: '03-263 9520 #35',
       address: '桃園市蘆竹區南崁路一段112號6F(台茂購物中心)',
-      open: [
+      time: [
         { id: 1, day: '週一～週四/11:00~22:00' },
         { id: 2, day: '週五、週六、例假日前一天/11:00~22:30' },
       ],
+      open: '週一～週四/11:00~22:00<br>週五、週六、例假日前一天/11:00~22:30',
     },
     {
       id: 3,
       store: 'EVERRICH 昇恆昌桃園機場 T1',
       phone: '－',
       address: '南區商業服務區-藥妝店',
-      open: [{ id: 1, day: '週一～週日/06:00~23:00' }],
+      time: [{ id: 1, day: '週一～週日/06:00~23:00' }],
+      open: '週一～週日/06:00~23:00',
     },
     {
       id: 4,
       store: 'EVERRICH 昇恆昌桃園機場 T2',
       phone: '－',
       address: '南區商業服務區-藥妝店',
-      open: [{ id: 1, day: '週一～週日/06:00~23:00' }],
+      time: [{ id: 1, day: '週一～週日/06:00~23:00' }],
+      open: '週一～週日/06:00~23:00',
     },
     {
       id: 5,
       store: 'TAIWAN DUTY FREE 采盟免稅店-桃園機場 T2',
       phone: '－',
       address: '桃園市大園區航站南路9號',
-      open: [{ id: 1, day: '週一～週日/06:00~23:00' }],
+      time: [{ id: 1, day: '週一～週日/06:00~23:00' }],
+      open: '週一～週日/06:00~23:00',
     },
   ];
 
@@ -260,31 +558,35 @@ export class CooperateComponent {
       store: '誠品生活-expo 中友店',
       phone: '04-2221 1287',
       address: '臺中市北區三民路三段161號11F(中友百貨C棟)',
-      open: [
+      time: [
         { id: 1, day: '週一～週五/11:00~22:00' },
         { id: 2, day: '週六～週日/10:30~22:00' },
       ],
+      open: '週一～週五/11:00~22:00<br>週六～週日/10:30~22:00',
     },
     {
       id: 2,
       store: '誠品生活-expo 台中三井店',
       phone: '04-2657 5856',
       address: '台中市梧棲區台灣大道十段168號1F(19800櫃)',
-      open: [{ id: 1, day: '週一～週日/11:00~21:30' }],
+      time: [{ id: 1, day: '週一～週日/11:00~21:30' }],
+      open: '週一～週日/11:00~21:30',
     },
     {
       id: 3,
       store: '誠品生活-expo SELECT台中480店',
       phone: '04-2251 6898 #4015',
       address: '台中市西屯區市政路480號4樓',
-      open: [{ id: 1, day: '週一～週日/11:00~22:00' }],
+      time: [{ id: 1, day: '週一～週日/11:00~22:00' }],
+      open: '週一～週日/11:00~21:30',
     },
     {
       id: 4,
       store: 'EVERRICH 台中國際機場 3F',
       phone: '－',
       address: '台中市沙鹿區中航路一段168號',
-      open: [{ id: 1, day: '週一～週日/06:00~22:00' }],
+      time: [{ id: 1, day: '週一～週日/06:00~22:00' }],
+      open: '週一～週日/11:00~21:30',
     },
   ];
 
@@ -294,21 +596,24 @@ export class CooperateComponent {
       store: '誠品生活-expo 南紡店',
       phone: '06-602 5600',
       address: '臺南市東區中華東路一段366號2F(南紡購物中心)',
-      open: [{ id: 1, day: '週一～週日/11:00~22:00' }],
+      time: [{ id: 1, day: '週一～週日/11:00~22:00' }],
+      open: '週一～週日/11:00~22:00',
     },
     {
       id: 2,
       store: '林百貨',
       phone: '06-221 3000',
       address: '台南市西區忠義路二段63號',
-      open: [{ id: 1, day: '週一～週日/11:00~22:00' }],
+      time: [{ id: 1, day: '週一～週日/11:00~22:00' }],
+      open: '週一～週日/11:00~22:00',
     },
     {
       id: 3,
       store: 'EVERRICH 高雄國際機場 出境',
       phone: '－',
       address: '高雄市小港區中山四路2號',
-      open: [{ id: 1, day: '週一～週日/5:30~21:00' }],
+      time: [{ id: 1, day: '週一～週日/5:30~21:00' }],
+      open: '週一～週日/5:30~21:00',
     },
   ];
 
@@ -318,7 +623,9 @@ export class CooperateComponent {
       store: '澎坊三號港 Pier 3',
       phone: '080-088 9909',
       address: '澎湖縣馬公市同和路158號',
-      open: [{ id: 1, day: '週一～週日/11:00~21:00' }],
+      time: [{ id: 1, day: '週一～週日/11:00~21:00' }],
+      open: '週一～週日/11:00~21:00',
     },
   ];
+  protected readonly Array = Array;
 }

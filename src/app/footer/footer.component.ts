@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -11,14 +11,17 @@ interface FooterList {
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink, MatDivider, MatIconModule],
+  imports: [RouterLink, MatDivider, MatIconModule, RouterLinkActive],
   template: `
     <footer class="flex flex-col px-8 bg-[#333] lg:px-16 ">
       <section class="flex flex-col gap-6 lg:flex-row lg:justify-between pt-16 lg:py-16">
         <div class="flex flex-col items-center gap-8 lg:items-start">
           <div>
-            <!--            TODO: 使用routerLink的時候最好把routerLinkActive/routerLinkActiveOptions也一起寫上去-->
-            <a routerLink="/home" class="block h-20 aspect-square"
+            <a
+              routerLink="/home"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="block h-20 aspect-square"
               ><img src="/logo-footer.png" alt="logo-footer"
             /></a>
           </div>
@@ -90,48 +93,81 @@ interface FooterList {
           </div>
         </div>
 
-        <!--        TODO: click要可以打開跟關起來-->
         <div class="flex flex-col lg:flex-row lg:gap-20">
-          <ul class="flex flex-col gap-2 py-3 lg:py-0 border-t border-t-gray-400 lg:border-none">
-            <div class="flex justify-between">
+          <ul class="flex flex-col py-3  lg:py-0 border-t border-t-gray-400 lg:border-none">
+            <div
+              class="flex justify-between items-center lg:pointer-events-none"
+              (click)="toggleService()"
+            >
               <h3 class="text-white lg:pb-6">客戶服務</h3>
               <mat-icon class="text-white lg:invisible">arrow_drop_down</mat-icon>
             </div>
-            @for (item of serviceList; track item.id) {
-              <li class="text-gray-400 text-sm cursor-pointer hover:text-white">
-                <!--            TODO: 使用routerLink的時候最好把routerLinkActive/routerLinkActiveOptions也一起寫上去-->
-                <a [routerLink]="item.link">{{ item.title }}</a>
-              </li>
-            }
+            <div
+              class="lg:block overflow-hidden transition-all duration-500 ease-in-out"
+              [class.max-h-0]="!serviceExpanded()"
+              [class.max-h-screen]="serviceExpanded()"
+            >
+              <div class="lg:flex  flex flex-col gap-4">
+                @for (item of serviceList; track item.id) {
+                  <li class="text-gray-400 text-sm cursor-pointer hover:text-white">
+                    <a
+                      [routerLink]="item.link"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{ item.title }}</a
+                    >
+                  </li>
+                }
+              </div>
+            </div>
           </ul>
-          <ul
-            class="flex flex-col gap-4 lg:gap-2 py-3 lg:py-0 border-t border-t-gray-400 lg:border-none"
-          >
-            <div class="flex justify-between">
+          <ul class="flex flex-col py-3 lg:py-0 border-t border-t-gray-400 lg:border-none">
+            <div
+              class="flex justify-between items-center lg:pointer-events-none"
+              (click)="toggleAbout()"
+            >
               <h3 class="text-white lg:pb-6">關於茶籽堂</h3>
               <mat-icon class="text-white lg:invisible"> arrow_drop_down </mat-icon>
             </div>
-            @for (item of aboutList; track item.id) {
-              <li class="text-gray-400 text-sm cursor-pointer hover:text-white">
-                <a [routerLink]="item.link">{{ item.title }}</a>
-              </li>
-            }
+            <div
+              class="lg:block overflow-hidden transition-all duration-500 ease-in-out"
+              [class.max-h-0]="!aboutExpanded()"
+              [class.max-h-screen]="aboutExpanded()"
+            >
+              <div class="lg:flex  flex flex-col gap-4">
+                @for (item of aboutList; track item.id) {
+                  <li class="text-gray-400 text-sm cursor-pointer hover:text-white">
+                    <a [routerLink]="item.link">{{ item.title }}</a>
+                  </li>
+                }
+              </div>
+            </div>
           </ul>
-          <ul class="flex flex-col gap-2 py-3 lg:py-0 border-t border-t-gray-400 lg:border-none">
-            <div class="flex justify-between">
+          <ul class="flex flex-col py-3 lg:py-0 border-t border-t-gray-400 lg:border-none">
+            <div
+              class="flex justify-between items-center lg:pointer-events-none"
+              (click)="toggleBusiness()"
+            >
               <h3 class="text-white lg:pb-6">營業事業</h3>
               <mat-icon class="text-white lg:invisible">arrow_drop_down</mat-icon>
             </div>
-            @for (item of businessList; track item.id) {
-              <li class="text-gray-400 text-sm cursor-pointer hover:text-white">
-                <a [routerLink]="item.link">{{ item.title }}</a>
-              </li>
-            }
+            <div
+              class="lg:block overflow-hidden transition-all duration-500 ease-in-out"
+              [class.max-h-0]="!businessExpanded()"
+              [class.max-h-screen]="businessExpanded()"
+            >
+              <div class="lg:flex  flex flex-col gap-4">
+                @for (item of businessList; track item.id) {
+                  <li class="text-gray-400 text-sm cursor-pointer hover:text-white">
+                    <a [routerLink]="item.link">{{ item.title }}</a>
+                  </li>
+                }
+              </div>
+            </div>
           </ul>
         </div>
       </section>
       <div>
-        <!--        TODO: 如果不是全域的css可以直接寫在component裡面-->
         <mat-divider class="material-divider"></mat-divider>
       </div>
       <section class="flex flex-col gap-6 lg:hidden text-gray-400 text-sm py-8">
@@ -139,13 +175,11 @@ interface FooterList {
           <a routerLink="/policy" class="hover:text-white">政策＆條款</a>
           <a routerLink="/private" class="hover:text-white">隱私權聲明</a>
         </div>
-        <!--        TODO:這邊為什麼需要多包一個div?如果用不到就拿掉-->
         <p>© 茶籽堂</p>
       </section>
       <section
         class="hidden gap-6 lg:flex lg:justify-between lg:items-center text-gray-400 text-sm py-8"
       >
-        <!--        TODO:這邊為什麼需要多包一個div?如果用不到就拿掉-->
         <p>© 茶籽堂</p>
         <div class="flex gap-6">
           <a routerLink="/policy" class="hover:text-white">政策＆條款</a>
@@ -155,8 +189,27 @@ interface FooterList {
     </footer>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: `
+    .material-divider {
+      border-top-color: rgb(156, 163, 175) !important;
+    }
+  `,
 })
 export class FooterComponent {
+  serviceExpanded = signal(true);
+  aboutExpanded = signal(true);
+  businessExpanded = signal(true);
+
+  toggleService() {
+    this.serviceExpanded.update((value) => !value);
+  }
+  toggleAbout() {
+    this.aboutExpanded.update((value) => !value);
+  }
+  toggleBusiness() {
+    this.businessExpanded.update((value) => !value);
+  }
+
   serviceList: FooterList[] = [
     { id: 1, title: '訂單查詢', link: '/search' },
     { id: 2, title: '關於會員', link: '/member' },

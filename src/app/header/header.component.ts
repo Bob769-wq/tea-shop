@@ -33,7 +33,6 @@ interface MenuList {
         <ul class="hidden lg:flex gap-6 text-sm py-1">
           @for (item of navListItems; track item.id) {
             <li class="relative group hover:text-orange-300">
-              <!--              TODO: hover的時候顏色 解決-->
               <a class="flex items-center" [routerLink]="item.link"
                 >{{ item.title }}
                 <mat-icon>keyboard_arrow_down</mat-icon>
@@ -45,7 +44,6 @@ interface MenuList {
                 >
                   <ul class="py-2 flex flex-col">
                     @for (child of item.children; track child.id) {
-                      <!--                      TODO: hover顏色不對 解決，hover跟cursor pointer的範圍不一樣 可是他原始範圍就不一樣 不過我有改了 解決-->
                       <a [routerLink]="child.link" class="text-gray-700">
                         <li class="p-2 hover:bg-[#F7F4EC] duration-200">
                           {{ child.title }}
@@ -61,42 +59,61 @@ interface MenuList {
       </div>
 
       <div class="relative">
-        <!--        TODO: search box的位置不對，動畫的速度太快了，會有奇怪的抖動畫面-->
-        <!--        TODO: 手機版的search box-->
         <ul class="flex items-center gap-5 ">
-          <li class="flex cursor-pointer hover:text-orange-400 group relative">
+          <li class="hidden lg:flex cursor-pointer hover:text-orange-400 group relative">
             <mat-icon>search</mat-icon>
             <div
-              class="absolute top-0 right-0 z-50 transition-all duration-300 ease-in-out
-              transform translate-x-full opacity-0 invisible group-hover:translate-x-0 group-hover:opacity-100 group-hover:visible
+              class="absolute top-0 right-full z-50 transition-all duration-700 ease-in-out
+              transform translate-x-1/4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100
               hidden lg:block"
             >
-              <!--                TODO: 如果這邊要用reactive form的話要記得把form寫進來 解決-->
               <form [formGroup]="form" class="">
-                <mat-form-field>
-                  <input
-                    matInput
-                    type="text"
-                    placeholder="找商品"
-                    formControlName="searchControl"
-                  />
-                  <mat-icon>search</mat-icon>
-                </mat-form-field>
+                <input
+                  class="border-b border-b-gray-300 focus:outline-none"
+                  type="text"
+                  placeholder="找商品"
+                  formControlName="searchControl"
+                />
               </form>
             </div>
           </li>
+          <li
+            class="lg:hidden flex cursor-pointer hover:text-orange-400 group relative"
+            (click)="searchBarOpen()"
+          >
+            <mat-icon>search</mat-icon>
+          </li>
+          @if (isSearchBarOpen()) {
+            <div class="fixed inset-0 z-50 lg:hidden">
+              <div class="absolute inset-0 bg-black bg-opacity-50" (click)="closeSearch()"></div>
+              <div class="relative bg-white">
+                <div class="flex items-center gap-2 p-4">
+                  <button>
+                    <mat-icon>search</mat-icon>
+                  </button>
+                  <form [formGroup]="form" class="flex-1">
+                    <input
+                      class="w-full text-lg border-b border-b-black outline-none"
+                      type="text"
+                      placeholder="找商品"
+                      formControlName="searchControl"
+                    />
+                  </form>
+                </div>
+              </div>
+            </div>
+          }
           <li class="lg:flex hidden cursor-pointer hover:text-orange-400 relative">
             <div class="flex items-center" (click)="toggleCurrencyDropdown()">
-              $ {{ selectedCurrency }}
+              $ {{ selectedCurrency() }}
               <mat-icon>keyboard_arrow_down</mat-icon>
             </div>
           </li>
-          <!--          TODO: 幣值太多的時候應該要可以scroll 增加max-height 解決-->
           <div
             class="absolute top-full left-8 mt-1 border border-gray-100 bg-white z-50
             transition-all duration-300 ease-in-out max-h-[var(--currency-container)] overflow-y-auto"
             [class]="
-              isCurrencyDropdownOpen
+              isCurrencyDropdownOpen()
                 ? 'opacity-100 visible translate-y-0 '
                 : 'opacity-0 invisible -translate-y-2'
             "
@@ -188,6 +205,7 @@ interface MenuList {
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: ``,
 })
 export class HeaderComponent {
   navListItems: NavList[] = [
@@ -311,6 +329,14 @@ export class HeaderComponent {
     },
   ];
 
+  isSearchBarOpen = signal(false);
+  searchBarOpen() {
+    this.isSearchBarOpen.set(true);
+  }
+  closeSearch() {
+    this.isSearchBarOpen.set(false);
+  }
+
   isMenuOpen = signal(false);
   toggleMenu() {
     this.isMenuOpen.update((value) => !value);
@@ -340,13 +366,10 @@ export class HeaderComponent {
   form = this.fb.group({
     searchControl: this.fb.control(''),
   });
-  // TODO: 如果是要用reactive form的話，格式要寫對
 
-  // TODO: why not use signal here?
-  selectedCurrency = 'TWD';
+  selectedCurrency = signal('TWD');
 
-  // TODO: why not use signal here?
-  isCurrencyDropdownOpen = false;
+  isCurrencyDropdownOpen = signal(false);
 
   currencies = [
     { id: 1, code: 'HKD', symbol: '$' },
@@ -371,13 +394,11 @@ export class HeaderComponent {
   ];
 
   toggleCurrencyDropdown() {
-    // TODO: why not use signal here?
-    this.isCurrencyDropdownOpen = !this.isCurrencyDropdownOpen;
+    this.isCurrencyDropdownOpen.update((isOpen) => !isOpen);
   }
 
   selectCurrency(currencyCode: string) {
-    // TODO: why not use signal here?
-    this.selectedCurrency = currencyCode;
-    this.isCurrencyDropdownOpen = false;
+    this.selectedCurrency.set(currencyCode);
+    this.isCurrencyDropdownOpen.set(false);
   }
 }

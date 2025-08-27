@@ -4,7 +4,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-right-corner',
   imports: [],
   template: `
-    <!--    TODO: 右下角沒有圓角-->
     done
     <div class="fixed right-5 bottom-5 z-50">
       <button
