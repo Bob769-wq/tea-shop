@@ -20,10 +20,10 @@ interface MenuList {
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, MatIconModule, MatFormField, MatInput, ReactiveFormsModule],
+  imports: [RouterLink, MatIconModule, ReactiveFormsModule],
   template: `
     <header
-      class="flex lg:px-8 lg:py-5 justify-between items-center lg:items-start fixed top-0 left-0 bg-white w-full"
+      class="flex lg:px-8 lg:py-5 justify-between items-center lg:items-start fixed top-0 left-0 bg-[#FFFDF8] w-full"
     >
       <div class="flex flex-1 items-end gap-9 px-4 py-2 lg:p-0">
         <a routerLink="/home" class="block h-10 lg:h-20 aspect-square">
@@ -342,24 +342,36 @@ export class HeaderComponent {
     this.isMenuOpen.update((value) => !value);
   }
 
-  // TODO: 為什麼這邊要用new Set()，而不是用array？type Set的用意是什麼？
-  expandedItems = signal<Set<number>>(new Set());
-
+  expandedItems = signal<number[]>([]);
   toggleSubMenu(itemId: number) {
-    const currentExpanded = new Set(this.expandedItems());
-
-    // TODO: 為什麼這邊需要這樣判斷，路徑不都已經可控嗎？
-    if (currentExpanded.has(itemId)) {
-      currentExpanded.delete(itemId);
+    const current = this.expandedItems();
+    if (current.includes(itemId)) {
+      this.expandedItems.set(current.filter((id) => id !== itemId));
     } else {
-      currentExpanded.add(itemId);
+      this.expandedItems.set([...current, itemId]);
     }
-    this.expandedItems.set(currentExpanded);
   }
 
   isExpanded(itemId: number): boolean {
-    return this.expandedItems().has(itemId);
+    return this.expandedItems().includes(itemId);
   }
+
+  // expandedItems = signal<Set<number>>(new Set());
+
+  // toggleSubMenu(itemId: number) {
+  //   const currentExpanded = new Set(this.expandedItems());
+
+  //   if (currentExpanded.has(itemId)) {
+  //     currentExpanded.delete(itemId);
+  //   } else {
+  //     currentExpanded.add(itemId);
+  //   }
+  //   this.expandedItems.set(currentExpanded);
+  // }
+  //
+  // isExpanded(itemId: number): boolean {
+  //   return this.expandedItems().has(itemId);
+  // }
 
   fb = inject(NonNullableFormBuilder);
 
