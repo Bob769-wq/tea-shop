@@ -147,7 +147,10 @@ interface MenuList {
       </div>
     </header>
 
-    <div class="fixed inset-0 bg-white z-50 overflow-y-auto" [class.hidden]="!isMenuOpen()">
+    <div
+      class="fixed inset-0 bg-white z-50 overflow-y-auto transition-transform duration-500 ease-in-out"
+      [class]="!isMenuOpen() ? 'translate-x-0' : '-translate-x-full'"
+    >
       <header class="flex justify-between px-10 py-6 border-b border-b-gray-100">
         <div class="text-2xl ">目錄</div>
         <mat-icon (click)="toggleMenu()">close</mat-icon>
@@ -189,10 +192,10 @@ interface MenuList {
           <li class="flex-1"><a routerLink="/contact" class="block w-full">聯絡我們</a></li>
           <mat-icon>comment</mat-icon>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center cursor-pointer" (click)="openMobileCurrency()">
           <li class="flex-1"><a routerLink="/coin" class="block w-full">幣值</a></li>
-          <div class="flex items-center gap-3 cursor-pointer">
-            <span>$TWD</span>
+          <div class="flex items-center gap-3 ">
+            <span>{{ selectedCurrency() }}</span>
             <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 640 640">
               <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
               <path
@@ -201,6 +204,34 @@ interface MenuList {
             </svg>
           </div>
         </div>
+      </ul>
+    </div>
+    <div
+      class="fixed inset-0 bg-white z-50 overflow-y-auto
+          transition-transform duration-500 ease-in-out"
+      [class]="isMobileCurrencyOpen() ? 'translate-x-0' : 'translate-x-full'"
+    >
+      <header class="px-10 py-4 flex items-center cursor-pointer" (click)="closeMobileCurrency()">
+        <mat-icon>arrow_backward</mat-icon>
+        <h3 class="text-xl">返回目錄</h3>
+      </header>
+      <div class="px-10 py-4 flex justify-between bg-[#F7F4EC]">
+        <h4>目前幣值</h4>
+        <div>$ {{ selectedCurrency() }}</div>
+      </div>
+      <ul class="flex flex-col py-2">
+        @for (currency of currencies; track currency.id) {
+          <div
+            class="flex items-center justify-between px-10 py-4 cursor pointer"
+            [class.text-orange-300]="selectedCurrency() === currency.code"
+            (click)="selectMobileCurrency(currency.code)"
+          >
+            <li class="flex-1">{{ currency.symbol }} {{ currency.code }}</li>
+            @if (selectedCurrency() === currency.code) {
+              <mat-icon class="text-orange-300">check</mat-icon>
+            }
+          </div>
+        }
       </ul>
     </div>
   `,
@@ -356,23 +387,6 @@ export class HeaderComponent {
     return this.expandedItems().includes(itemId);
   }
 
-  // expandedItems = signal<Set<number>>(new Set());
-
-  // toggleSubMenu(itemId: number) {
-  //   const currentExpanded = new Set(this.expandedItems());
-
-  //   if (currentExpanded.has(itemId)) {
-  //     currentExpanded.delete(itemId);
-  //   } else {
-  //     currentExpanded.add(itemId);
-  //   }
-  //   this.expandedItems.set(currentExpanded);
-  // }
-  //
-  // isExpanded(itemId: number): boolean {
-  //   return this.expandedItems().has(itemId);
-  // }
-
   fb = inject(NonNullableFormBuilder);
 
   form = this.fb.group({
@@ -382,6 +396,20 @@ export class HeaderComponent {
   selectedCurrency = signal('TWD');
 
   isCurrencyDropdownOpen = signal(false);
+
+  isMobileCurrencyOpen = signal(false);
+  openMobileCurrency() {
+    this.isMobileCurrencyOpen.set(true);
+  }
+  closeMobileCurrency() {
+    this.isMobileCurrencyOpen.set(false);
+  }
+
+  selectMobileCurrency(currencyCode: string) {
+    this.selectedCurrency.set(currencyCode);
+    this.isMobileCurrencyOpen.set(false);
+    this.isMenuOpen.set(false);
+  }
 
   currencies = [
     { id: 1, code: 'HKD', symbol: '$' },
