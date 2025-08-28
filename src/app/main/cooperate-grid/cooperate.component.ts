@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CoDeskSmart } from '../../co-desk-smart/co-desk-smart';
 
 interface ChildrenItems {
   id: number;
@@ -16,7 +17,7 @@ interface OpenTime {
 
 @Component({
   selector: 'app-cooperate',
-  imports: [],
+  imports: [CoDeskSmart],
   template: `
     <section class="max-w-6xl m-auto">
       <div class="flex justify-center py-5">
@@ -206,272 +207,12 @@ interface OpenTime {
         </div>
       </div>
 
-      <!--      <table mat-table [dataSource]="NorthItems">-->
-      <!--        <ng-container matColumnDef="store">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>門市</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.store }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="phone">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>電話</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="address">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>地址</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.address }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="open">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>營業時間</th>-->
-      <!--          <td mat-cell *matCellDef="let element">-->
-      <!--            @for (day of element.time; track day.id) {-->
-      <!--              <div>-->
-      <!--                {{ day.day }}-->
-      <!--              </div>-->
-      <!--            }-->
-      <!--          </td>-->
-      <!--        </ng-container>-->
-      <!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-      <!--        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
-      <!--      </table>-->
-      <!--      <table mat-table [dataSource]="HakkaItems">-->
-      <!--        <ng-container matColumnDef="store">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>門市</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.store }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="phone">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>電話</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="address">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>地址</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.address }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="open">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>營業時間</th>-->
-      <!--          <td mat-cell *matCellDef="let element">-->
-      <!--            @for (day of element.time; track day.id) {-->
-      <!--              <div>-->
-      <!--                {{ day.day }}-->
-      <!--              </div>-->
-      <!--            }-->
-      <!--          </td>-->
-      <!--        </ng-container>-->
-      <!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-      <!--        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
-      <!--      </table>-->
-      <!--      <table mat-table [dataSource]="GunItems">-->
-      <!--        <ng-container matColumnDef="store">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>門市</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.store }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="phone">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>電話</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="address">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>地址</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.address }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="open">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>營業時間</th>-->
-      <!--          <td mat-cell *matCellDef="let element">-->
-      <!--            @for (day of element.time; track day.id) {-->
-      <!--              <div>-->
-      <!--                {{ day.day }}-->
-      <!--              </div>-->
-      <!--            }-->
-      <!--          </td>-->
-      <!--        </ng-container>-->
-      <!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-      <!--        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
-      <!--      </table>-->
-      <!--      <table mat-table [dataSource]="SouthItems">-->
-      <!--        <ng-container matColumnDef="store">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>門市</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.store }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="phone">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>電話</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="address">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>地址</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.address }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="open">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>營業時間</th>-->
-      <!--          <td mat-cell *matCellDef="let element">-->
-      <!--            @for (day of element.time; track day.id) {-->
-      <!--              <div>-->
-      <!--                {{ day.day }}-->
-      <!--              </div>-->
-      <!--            }-->
-      <!--          </td>-->
-      <!--        </ng-container>-->
-      <!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-      <!--        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
-      <!--      </table>-->
-      <!--      <table mat-table [dataSource]="IslandItems">-->
-      <!--        <ng-container matColumnDef="store">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>門市</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.store }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="phone">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>電話</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="address">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>地址</th>-->
-      <!--          <td mat-cell *matCellDef="let element">{{ element.address }}</td>-->
-      <!--        </ng-container>-->
-      <!--        <ng-container matColumnDef="open">-->
-      <!--          <th mat-header-cell *matHeaderCellDef>營業時間</th>-->
-      <!--          <td mat-cell *matCellDef="let element">-->
-      <!--            @for (day of element.time; track day.id) {-->
-      <!--              <div>-->
-      <!--                {{ day.day }}-->
-      <!--              </div>-->
-      <!--            }-->
-      <!--          </td>-->
-      <!--        </ng-container>-->
-      <!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-      <!--        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
-      <!--      </table>-->
-
-      <div class="md:flex md:px-12 flex-col gap-32 hidden py-28">
-        <div>
-          <h3 class="text-[#929292] text-xl">北北基</h3>
-          <div
-            class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
-          >
-            <div>門市</div>
-            <div>電話</div>
-            <div>地址</div>
-            <div>營業時間</div>
-          </div>
-          @for (item of NorthItems; track item.id) {
-            <div class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-sm">
-              <div>{{ item.store }}</div>
-              <div>{{ item.phone }}</div>
-              <div>{{ item.address }}</div>
-              <div>
-                @for (day of item.time; track day.id) {
-                  <div>
-                    {{ day.day }}
-                  </div>
-                }
-              </div>
-            </div>
-          }
-        </div>
-
-        <div>
-          <h3 class="text-[#929292] text-xl">桃竹苗</h3>
-          <div
-            class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
-          >
-            <div>門市</div>
-            <div>電話</div>
-            <div>地址</div>
-            <div>營業時間</div>
-          </div>
-          @for (item of HakkaItems; track item.id) {
-            <div class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-sm">
-              <div>{{ item.store }}</div>
-              <div>{{ item.phone }}</div>
-              <div>{{ item.address }}</div>
-              <div>
-                @for (day of item.time; track day.id) {
-                  <div>
-                    {{ day.day }}
-                  </div>
-                }
-              </div>
-            </div>
-          }
-        </div>
-        <div>
-          <h3 class="text-[#929292] text-xl">中區</h3>
-          <div
-            class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
-          >
-            <div>門市</div>
-            <div>電話</div>
-            <div>地址</div>
-            <div>營業時間</div>
-          </div>
-          @for (item of GunItems; track item.id) {
-            <div class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-sm">
-              <div>{{ item.store }}</div>
-              <div>{{ item.phone }}</div>
-              <div>{{ item.address }}</div>
-              <div>
-                @for (day of item.time; track day.id) {
-                  <div>
-                    {{ day.day }}
-                  </div>
-                }
-              </div>
-            </div>
-          }
-        </div>
-        <div>
-          <h3 class="text-[#929292] text-xl">南區</h3>
-          <div
-            class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
-          >
-            <div>門市</div>
-            <div>電話</div>
-            <div>地址</div>
-            <div>營業時間</div>
-          </div>
-          @for (item of SouthItems; track item.id) {
-            <div class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-sm">
-              <div>{{ item.store }}</div>
-              <div>{{ item.phone }}</div>
-              <div>{{ item.address }}</div>
-              <div>
-                @for (day of item.time; track day.id) {
-                  <div>
-                    {{ day.day }}
-                  </div>
-                }
-              </div>
-            </div>
-          }
-        </div>
-        <div>
-          <h3 class="text-[#929292] text-xl">外島</h3>
-          <div
-            class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
-          >
-            <div>門市</div>
-            <div>電話</div>
-            <div>地址</div>
-            <div>營業時間</div>
-          </div>
-          @for (item of IslandItems; track item.id) {
-            <div class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-sm">
-              <div>{{ item.store }}</div>
-              <div>{{ item.phone }}</div>
-              <div>{{ item.address }}</div>
-              <div>
-                @for (day of item.time; track day.id) {
-                  <div>
-                    {{ day.day }}
-                  </div>
-                }
-              </div>
-            </div>
-          }
-        </div>
-      </div>
+      <app-co-desk-smart />
     </section>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CooperateComponent {
-  displayedColumns = ['store', 'phone', 'address', 'open'];
-
   NorthItems: ChildrenItems[] = [
     {
       id: 1,
@@ -627,5 +368,4 @@ export class CooperateComponent {
       open: '週一～週日/11:00~21:00',
     },
   ];
-  protected readonly Array = Array;
 }

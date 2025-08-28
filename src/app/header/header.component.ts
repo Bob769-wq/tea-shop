@@ -2,8 +2,6 @@ import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/cor
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { MatFormField } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
 
 interface NavList {
   id: number;
@@ -60,14 +58,20 @@ interface MenuList {
 
       <div class="relative">
         <ul class="flex items-center gap-5 ">
-          <li class="hidden lg:flex cursor-pointer hover:text-orange-400 group relative">
-            <mat-icon>search</mat-icon>
+          <li class="hidden lg:flex cursor-pointer hover:text-orange-400 relative">
+            <mat-icon (mouseenter)="onSearchHover()" (mouseleave)="onSearchLeave()">
+              search
+            </mat-icon>
             <div
-              class="absolute top-0 right-full z-50 transition-all duration-700 ease-in-out
-              transform translate-x-1/4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100
-              hidden lg:block"
+              class="absolute top-0 right-full z-50 transition-all duration-700 ease-in-out transform translate-x-0 hidden lg:block pointer-events-none"
+              [class.opacity-0]="!showSearchInput()"
+              [class.opacity-100]="showSearchInput()"
+              [class.-translate-x-1]="showSearchInput()"
+              [class.pointer-events-auto]="showSearchInput()"
+              (mouseenter)="onInputEnter()"
+              (mouseleave)="onInputLeave()"
             >
-              <form [formGroup]="form" class="">
+              <form [formGroup]="form">
                 <input
                   class="border-b border-b-gray-300 focus:outline-none"
                   type="text"
@@ -149,7 +153,7 @@ interface MenuList {
 
     <div
       class="fixed inset-0 bg-white z-50 overflow-y-auto transition-transform duration-500 ease-in-out"
-      [class]="!isMenuOpen() ? 'translate-x-0' : '-translate-x-full'"
+      [class]="isMenuOpen() ? 'translate-x-0' : '-translate-x-full'"
     >
       <header class="flex justify-between px-10 py-6 border-b border-b-gray-100">
         <div class="text-2xl ">目錄</div>
@@ -157,7 +161,9 @@ interface MenuList {
       </header>
       <ul class="flex flex-col py-2">
         @for (item of navListItems; track item.id) {
-          <div class="flex items-center px-10 py-4">
+          <div
+            class="flex items-center px-10 py-4 transition-transform duration-300 ease-in-out hover:-translate-y-1"
+          >
             <li class="flex-1">
               <a [routerLink]="item.link" class="block w-full">{{ item.title }}</a>
             </li>
@@ -184,16 +190,29 @@ interface MenuList {
         }
       </ul>
       <ul class="flex flex-col gap-8 px-10 py-8 border-t border-t-gray-100">
-        <li class="flex-1"><a routerLink="/member" class="block w-full">會員登入</a></li>
-        <li class="flex-1"><a routerLink="/new" class="block w-full">新用戶註冊</a></li>
+        <li class="flex-1 transition-transform duration-300 ease-in-out hover:-translate-y-1">
+          <a routerLink="/member" class="block w-full">會員登入</a>
+        </li>
+        <li class="flex-1 transition-transform duration-300 ease-in-out hover:-translate-y-1">
+          <a routerLink="/new" class="block w-full">新用戶註冊</a>
+        </li>
       </ul>
       <ul class="flex flex-col gap-8 px-10 py-8 border-t border-t-gray-100">
-        <div class="flex items-center cursor-pointer">
-          <li class="flex-1"><a routerLink="/contact" class="block w-full">聯絡我們</a></li>
+        <div
+          class="flex items-center cursor-pointer transition-transform duration-300 ease-in-out hover:-translate-y-1"
+        >
+          <li class="flex-1 ">
+            <a routerLink="/contact" class="block w-full">聯絡我們</a>
+          </li>
           <mat-icon>comment</mat-icon>
         </div>
-        <div class="flex items-center cursor-pointer" (click)="openMobileCurrency()">
-          <li class="flex-1"><a routerLink="/coin" class="block w-full">幣值</a></li>
+        <div
+          class="flex items-center cursor-pointer transition-transform duration-300 ease-in-out hover:-translate-y-1"
+          (click)="openMobileCurrency()"
+        >
+          <li class="flex-1 ">
+            <a routerLink="/coin" class="block w-full">幣值</a>
+          </li>
           <div class="flex items-center gap-3 ">
             <span>{{ selectedCurrency() }}</span>
             <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 640 640">
@@ -440,5 +459,28 @@ export class HeaderComponent {
   selectCurrency(currencyCode: string) {
     this.selectedCurrency.set(currencyCode);
     this.isCurrencyDropdownOpen.set(false);
+  }
+
+  showSearchInput = signal(false);
+  isHoveringInput = signal(false);
+
+  onSearchHover() {
+    this.showSearchInput.set(true);
+  }
+
+  onSearchLeave() {
+    setTimeout(() => {
+      if (!this.isHoveringInput()) {
+        this.showSearchInput.set(false);
+      }
+    }, 100);
+  }
+
+  onInputEnter() {
+    this.isHoveringInput.set(true);
+  }
+  onInputLeave() {
+    this.isHoveringInput.set(false);
+    this.showSearchInput.set(false);
   }
 }

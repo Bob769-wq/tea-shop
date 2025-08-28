@@ -94,12 +94,12 @@ interface FooterList {
         </div>
 
         <div class="flex flex-col lg:flex-row lg:gap-20">
-          <ul class="flex flex-col py-3  lg:py-0 border-t border-t-gray-400 lg:border-none">
+          <ul class="flex flex-col py-3 lg:py-0 border-t border-t-gray-400 lg:border-none">
             <div
               class="flex justify-between items-center lg:pointer-events-none"
               (click)="toggleService()"
             >
-              <h3 class="text-white lg:pb-6">客戶服務</h3>
+              <h3 class="text-white lg:pb-6 lg:mb-0" [class.mb-2]="serviceExpanded()">客戶服務</h3>
               <mat-icon class="text-white lg:invisible">arrow_drop_down</mat-icon>
             </div>
             <div
@@ -126,7 +126,7 @@ interface FooterList {
               class="flex justify-between items-center lg:pointer-events-none"
               (click)="toggleAbout()"
             >
-              <h3 class="text-white lg:pb-6">關於茶籽堂</h3>
+              <h3 class="text-white lg:pb-6 lg:mb-0" [class.mb-2]="aboutExpanded()">關於茶籽堂</h3>
               <mat-icon class="text-white lg:invisible"> arrow_drop_down </mat-icon>
             </div>
             <div
@@ -148,7 +148,7 @@ interface FooterList {
               class="flex justify-between items-center lg:pointer-events-none"
               (click)="toggleBusiness()"
             >
-              <h3 class="text-white lg:pb-6">營業事業</h3>
+              <h3 class="text-white lg:pb-6 lg:mb-0" [class.mb-2]="businessExpanded()">營業事業</h3>
               <mat-icon class="text-white lg:invisible">arrow_drop_down</mat-icon>
             </div>
             <div
