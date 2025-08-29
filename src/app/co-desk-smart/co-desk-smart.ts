@@ -1,87 +1,36 @@
 import { Component } from '@angular/core';
-import { CoDeskDumb } from '../co-desk-dumb/co-desk-dumb';
+import { CoDeskRegion } from '../co-desk-region/co-desk-region';
+
+interface ChildrenItems {
+  id: number;
+  store: string;
+  phone: string;
+  address: string;
+  time: OpenTime[];
+  open?: string;
+}
+
+interface OpenTime {
+  id: number;
+  day: string;
+}
 
 @Component({
   selector: 'app-co-desk-smart',
-  imports: [CoDeskDumb],
+  imports: [CoDeskRegion],
   template: `
-    <div class="md:flex md:px-12 flex-col gap-32 hidden py-28">
-      <div>
-        <h3 class="text-[#929292] text-xl">北北基</h3>
-        <div
-          class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
-        >
-          <div>門市</div>
-          <div>電話</div>
-          <div>地址</div>
-          <div>營業時間</div>
-        </div>
-        @for (card of NorthItems; track card.id) {
-          <app-co-desk-dumb [card]="card" />
-        }
-      </div>
-      <div>
-        <h3 class="text-[#929292] text-xl">桃竹苗</h3>
-        <div
-          class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
-        >
-          <div>門市</div>
-          <div>電話</div>
-          <div>地址</div>
-          <div>營業時間</div>
-        </div>
-        @for (card of HakkaItems; track card.id) {
-          <app-co-desk-dumb [card]="card" />
-        }
-      </div>
-      <div>
-        <h3 class="text-[#929292] text-xl">中區</h3>
-        <div
-          class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
-        >
-          <div>門市</div>
-          <div>電話</div>
-          <div>地址</div>
-          <div>營業時間</div>
-        </div>
-        @for (card of GunItems; track card.id) {
-          <app-co-desk-dumb [card]="card" />
-        }
-      </div>
-      <div>
-        <h3 class="text-[#929292] text-xl">南區</h3>
-        <div
-          class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
-        >
-          <div>門市</div>
-          <div>電話</div>
-          <div>地址</div>
-          <div>營業時間</div>
-        </div>
-        @for (card of SouthItems; track card.id) {
-          <app-co-desk-dumb [card]="card" />
-        }
-      </div>
-      <div>
-        <h3 class="text-[#929292] text-xl">外島</h3>
-        <div
-          class="grid grid-cols-[2fr_1fr_2fr_2fr] border-b border-b-gray-400 py-2 mt-4 text-xs text-[#BE9F6F]"
-        >
-          <div>門市</div>
-          <div>電話</div>
-          <div>地址</div>
-          <div>營業時間</div>
-        </div>
-        @for (card of IslandItems; track card.id) {
-          <app-co-desk-dumb [card]="card" />
-        }
-      </div>
+    <div class="md:flex md:mx-16 lg:px-4 max-w-6xl flex-col gap-32 hidden py-28">
+      <app-co-desk-region title="北北基" [items]="NorthItems" />
+      <app-co-desk-region title="桃竹苗" [items]="HakkaItems" />
+      <app-co-desk-region title="中區" [items]="GunItems" />
+      <app-co-desk-region title="南區" [items]="SouthItems" />
+      <app-co-desk-region title="外島" [items]="IslandItems" />
     </div>
   `,
   styles: ``,
 })
 export class CoDeskSmart {
-  NorthItems = [
+  NorthItems: ChildrenItems[] = [
     {
       id: 1,
       store: '誠品生活-expo 林口三井店',
@@ -112,7 +61,7 @@ export class CoDeskSmart {
     },
   ];
 
-  HakkaItems = [
+  HakkaItems: ChildrenItems[] = [
     {
       id: 1,
       store: '誠品生活-expo 桃園統領店',
@@ -161,7 +110,7 @@ export class CoDeskSmart {
     },
   ];
 
-  GunItems = [
+  GunItems: ChildrenItems[] = [
     {
       id: 1,
       store: '誠品生活-expo 中友店',
@@ -199,7 +148,7 @@ export class CoDeskSmart {
     },
   ];
 
-  SouthItems = [
+  SouthItems: ChildrenItems[] = [
     {
       id: 1,
       store: '誠品生活-expo 南紡店',
@@ -226,7 +175,7 @@ export class CoDeskSmart {
     },
   ];
 
-  IslandItems = [
+  IslandItems: ChildrenItems[] = [
     {
       id: 1,
       store: '澎坊三號港 Pier 3',

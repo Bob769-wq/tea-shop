@@ -5,19 +5,11 @@ import { CardItem } from '../card-item/card-item';
   selector: 'app-card-container',
   imports: [CardItem],
   template: `
-    <section class="max-w-6xl m-auto">
-      <div class="flex justify-center py-5">
-        <img src="/direct-title-s.webp" alt="direct-title-s" class="md:hidden" />
-        <img src="/direct-title-m.webp" alt="direct-title-m" class="hidden md:block lg:hidden" />
-        <img src="/direct-title-lg.webp" alt="direct-title-md" class="hidden lg:block" />
-      </div>
-
-      <div class="flex flex-col px-4 md:grid grid-cols-4 md:px-20 lg:px-0 gap-3">
-        @for (card of gridCardCss; track card.id) {
-          <app-card-item [card]="card" />
-        }
-      </div>
-    </section>
+    <div class="flex flex-col px-4 md:grid grid-cols-4 md:px-20 lg:px-0 gap-3">
+      @for (card of gridCardCss; track card.id) {
+        <app-card-item [card]="card" />
+      }
+    </div>
   `,
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,

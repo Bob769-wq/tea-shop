@@ -18,11 +18,13 @@ interface OpenTime {
   selector: 'app-co-desk-dumb',
   imports: [],
   template: `
-    <div class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-sm">
-      <div>{{ card().store }}</div>
-      <div>{{ card().phone }}</div>
-      <div>{{ card().address }}</div>
-      <div>
+    <div
+      class="grid grid-cols-[2fr_1fr_2fr_2fr] items-center py-4 border-b text-super-small lg:text-xs "
+    >
+      <div class="px-2 ">{{ card().store }}</div>
+      <div class="px-2">{{ card().phone }}</div>
+      <div class="px-2">{{ card().address }}</div>
+      <div class="px-2">
         @for (day of card().time; track day.id) {
           <div>
             {{ day.day }}

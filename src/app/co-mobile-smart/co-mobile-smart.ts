@@ -1,13 +1,36 @@
 import { Component } from '@angular/core';
+import { CoMobileRegion } from '../co-mobile-region/co-mobile-region';
+
+interface ChildrenItems {
+  id: number;
+  store: string;
+  phone: string;
+  address: string;
+  time: OpenTime[];
+  open?: string;
+}
+
+interface OpenTime {
+  id: number;
+  day: string;
+}
 
 @Component({
   selector: 'app-co-mobile-smart',
-  imports: [],
-  template: ` <p>co-mobile-smart works!</p> `,
+  imports: [CoMobileRegion],
+  template: `
+    <div class="flex flex-col px-6 pb-24 gap-32 tracking-widest md:hidden">
+      <app-co-mobile-region [items]="NorthItems" title="北北基" />
+      <app-co-mobile-region [items]="HakkaItems" title="桃竹苗" />
+      <app-co-mobile-region [items]="GunItems" title="中區" />
+      <app-co-mobile-region [items]="SouthItems" title="南區" />
+      <app-co-mobile-region [items]="IslandItems" title="外島" />
+    </div>
+  `,
   styles: ``,
 })
 export class CoMobileSmart {
-  NorthItems = [
+  NorthItems: ChildrenItems[] = [
     {
       id: 1,
       store: '誠品生活-expo 林口三井店',
@@ -38,7 +61,7 @@ export class CoMobileSmart {
     },
   ];
 
-  HakkaItems = [
+  HakkaItems: ChildrenItems[] = [
     {
       id: 1,
       store: '誠品生活-expo 桃園統領店',
@@ -87,7 +110,7 @@ export class CoMobileSmart {
     },
   ];
 
-  GunItems = [
+  GunItems: ChildrenItems[] = [
     {
       id: 1,
       store: '誠品生活-expo 中友店',
@@ -125,7 +148,7 @@ export class CoMobileSmart {
     },
   ];
 
-  SouthItems = [
+  SouthItems: ChildrenItems[] = [
     {
       id: 1,
       store: '誠品生活-expo 南紡店',
@@ -152,7 +175,7 @@ export class CoMobileSmart {
     },
   ];
 
-  IslandItems = [
+  IslandItems: ChildrenItems[] = [
     {
       id: 1,
       store: '澎坊三號港 Pier 3',
